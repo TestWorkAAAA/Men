@@ -14,6 +14,12 @@
 	                    http://www.springframework.org/schema/tool	                    
 	                    http://www.springframework.org/schema/tool/spring-tool-4.0.xsd">
 
-	
-
+	<bean id="joinClassManager" class="com.cdut.myschool.core.impl.JoinClassManagerImpl" />
+	<bean id="userManager" class="com.cdut.myschool.core.impl.UserManagerImpl"/>
+	<bean id="learnInfoManager" class="com.cdut.myschool.core.impl.LearnInfoManagerImpl"/>
+	<bean id="learnTypeManager" class="com.cdut.myschool.core.impl.LearnTypeManagerImpl"/>
+	<bean id="planManager" class="com.cdut.myschool.core.impl.PlanManagerImpl"/>
+	<bean id="roastManager" class="com.cdut.myschool.core.impl.RoastManagerImpl"/>
+	<bean id="studyManager" class="com.cdut.myschool.core.impl.StudyManagerImpl"/>
+	<bean id="zoneManager" class="com.cdut.myschool.core.impl.ZoneManagerImpl"/>
 </beans>

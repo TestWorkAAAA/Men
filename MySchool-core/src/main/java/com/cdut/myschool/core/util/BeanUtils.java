@@ -1,7 +1,8 @@
-package com.MySchool.myschool.core.util;
+package com.cdut.myschool.core.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import org.springframework.util.StringUtils;
 
@@ -73,4 +74,5 @@ public class BeanUtils
         }
         return null;
     }
+
 }

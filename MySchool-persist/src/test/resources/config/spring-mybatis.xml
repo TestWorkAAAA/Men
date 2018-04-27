@@ -60,12 +60,12 @@
 	<!-- myBatis文件 -->
 	<bean id="userSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="typeAliasesPackage" value="com.yang.MySchool.persist.entity" />
+		<property name="typeAliasesPackage" value="com.cdut.myschool.persist.entity" />
 		<property name="mapperLocations" value="classpath:dao/**/*.xml" />
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.yang.MySchool.persist.dao" />
+		<property name="basePackage" value="com.cdut.myschool.persist.dao" />
 		<property name="sqlSessionFactoryBeanName" value="userSqlSessionFactory" />
 	</bean>
 

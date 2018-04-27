@@ -13,7 +13,7 @@
                         password="12345678" />
 
 
-        <javaModelGenerator targetPackage="com.cdut.myschool.persist.dao" targetProject="src/main/java" >
+        <javaModelGenerator targetPackage="com.cdut.myschool.persist.entity" targetProject="src/main/java" >
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -27,13 +27,6 @@
         </javaClientGenerator>
 
         <table tableName="join_class"/>
-        <table tableName="learn_info"/>
-        <table tableName="learn_type"/>
-        <table tableName="plan"/>
-        <table tableName="roast"/>
-        <table tableName="study"/>
-        <table tableName="user_info"/>
-        <table tableName="zone"/>
 
     </context>
 

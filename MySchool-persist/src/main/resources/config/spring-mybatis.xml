@@ -28,7 +28,7 @@
         </property>
 	</bean>
 	
-	<!-- 配置數據源 -->
+	<!-- 配置數據源 -->A
 	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="" destroy-method="close">
 		
@@ -60,12 +60,12 @@
 	<!-- myBatis文件 -->
 	<bean id="userSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="typeAliasesPackage" value="com.yang.MySchool.persist.entity" />
+		<property name="typeAliasesPackage" value="com.cdut.myschool.persist.entity" />
 		<property name="mapperLocations" value="classpath:dao/**/*.xml" />
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.yang.MySchool.persist.dao" />
+		<property name="basePackage" value="com.cdut.myschool.persist.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="userSqlSessionFactory" />
 	</bean>
 
@@ -80,6 +80,7 @@
 			<tx:method name="find*" read-only="true" />
 			<tx:method name="login*" read-only="true" />
 			<tx:method name="query*" read-only="true" />
+			<tx:method name="select*" read-only="true"/>
 
 			<!-- 这些开头的方法 设为REQUIRED 如果存在一个事务 ，则支看当前事务。 如果没有则开启一个新事务 设为supports时 如果存在一个事务 
 				，则支看当前事务。如果没有则安非事务处理 delete -->
