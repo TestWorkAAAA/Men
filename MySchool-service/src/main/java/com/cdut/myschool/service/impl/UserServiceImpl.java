@@ -6,6 +6,7 @@ import com.cdut.myschool.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,5 +34,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> queryByParams(Map<String, Object> params) {
         return manager.queryByParams(params);
+    }
+
+    @Override
+    public int updateCoin(String id, String coin) {
+        return manager.updateCoinById(id, Integer.parseInt(coin));
+    }
+
+    @Override
+    public boolean checkNameOnly(String name) {
+        Map<String, Object> map = new HashMap<>();
+        if (name != null) {
+            map.put(UserManager.KEY_USER_NAME, name);
+            return manager.queryByParams(map).size() == 0;
+        }
+        return false;
     }
 }
