@@ -1,8 +1,9 @@
 package com.cdut.myschool.service.impl;
 
-import com.cdut.myschool.core.dto.RoastDto;
-import com.cdut.myschool.core.manager.RoastManager;
-import com.cdut.myschool.service.service.RoastService;
+import com.cdut.myschool.core.dto.TipDto;
+import com.cdut.myschool.core.manager.ReplayManager;
+import com.cdut.myschool.core.manager.TipManager;
+import com.cdut.myschool.service.service.TipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class RoastServiceImpl implements RoastService {
+public class TipServiceImpl implements TipService {
 
     @Autowired
-    RoastManager manager;
+    TipManager manager;
 
     @Override
-    public int addOne(RoastDto dto) {
+    public int addOne(TipDto dto) {
         return manager.insertOneRecord(dto);
     }
 
@@ -26,18 +27,17 @@ public class RoastServiceImpl implements RoastService {
     }
 
     @Override
-    public int updateOne(RoastDto dto) {
+    public int updateOne(TipDto dto) {
         return manager.updateRecordById(dto);
     }
 
     @Override
-    public List<RoastDto> queryByParams(Map<String, Object> params) {
+    public List<TipDto> queryByParams(Map<String, Object> params) {
         return manager.queryByParams(params);
     }
 
     @Override
     public int deleteById(String id, String userId) {
-
         if (userId.equals(manager.getByPrimaryKey(id).getUserId())) {
             return manager.deleteByPrimaryKey(id);
         } else {

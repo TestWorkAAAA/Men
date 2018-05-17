@@ -6,71 +6,69 @@ import com.cdut.myschool.core.util.UID;
 import com.cdut.myschool.persist.entity.Roast;
 import com.cdut.myschool.persist.entity.RoastExample;
 import com.cdut.myschool.persist.mapper.RoastMapper;
+import com.cdut.myschool.persist.mapper.UserInfoMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class RoastManagerImpl implements RoastManager {
 
     @Autowired
     RoastMapper mapper;
 
+    @Autowired
+    UserInfoMapper userInfoMapper;
+
     @Override
     public List<RoastDto> queryByParams(Map<String, Object> params) {
+        checkNotNull(params);
         RoastExample example = new RoastExample();
         RoastExample.Criteria criteria = example.createCriteria();
-        if (params != null && params.size() != 0) {
-            if (params.get(KEY_COGNATEID) != null) {
-                criteria.andCognateIdEqualTo(params.get(KEY_COGNATEID).toString());
-            }
-            if (params.get(KEY_ID) != null) {
-                criteria.andIdEqualTo(params.get(KEY_ID).toString());
-            }
-            if (params.get(KEY_CONTEXT) != null) {
-                criteria.andContextEqualTo((String) params.get(KEY_CONTEXT));
-            }
-            if (params.get(KEY_TOPIC_ID) != null) {
-                criteria.andTopicIdEqualTo((String) params.get(KEY_TOPIC_ID));
-            }
-            if (params.get(KEY_TYPE) != null) {
-                criteria.andTypeEqualTo((Integer) params.get(KEY_TYPE));
-            }
-            if (params.get(KEY_TIME) != null) {
-                if (params.get(KEY_TIME) instanceof Date) {
-                    criteria.andTimeGreaterThan((Date) params.get(KEY_TIME));
-                } else {
-                    throw new IllegalArgumentException("Time value must to java.util.Date");
-                }
-            }
-            List<Roast> temp = mapper.selectByExample(example);
-            List<RoastDto> result = new ArrayList<>(temp.size());
-            for (Roast entity : temp) {
-                RoastDto dto = new RoastDto();
-                BeanUtils.copyProperties(entity, dto);
-                result.add(dto);
-            }
-            return result;
+        if (params.get(KEY_ID) != null) {
+            criteria.andIdEqualTo(params.get(KEY_ID).toString());
         }
-        return null;
+        if (params.get(KEY_USER_ID) != null) {
+            criteria.andUserIdEqualTo(params.get(KEY_USER_ID).toString());
+        }
+        List<Roast> temp = mapper.selectByExample(example);
+        List<RoastDto> result = new ArrayList<>(temp.size());
+        for (Roast entity : temp) {
+            RoastDto dto = new RoastDto();
+            BeanUtils.copyProperties(entity, dto);
+            dto.setUserName(userInfoMapper
+                    .selectByPrimaryKey(entity.getUserId()).getUserName());
+            result.add(dto);
+        }
+        return result;
     }
 
     @Override
     public int deleteByPrimaryKey(String id) {
+        checkNotNull(id);
         return mapper.deleteByPrimaryKey(id);
     }
 
     @Override
     public int insertSelective(RoastDto dto) {
-        return 0;
+        Roast roast = new Roast();
+        BeanUtils.copyProperties(dto, roast);
+        roast.setId(UID.next());
+        return mapper.insertSelective(roast);
     }
 
     @Override
     public RoastDto getByPrimaryKey(String id) {
-        return null;
+        RoastDto dto = new RoastDto();
+        Roast roast = mapper.selectByPrimaryKey(id);
+        BeanUtils.copyProperties(roast, dto);
+        dto.setUserName(userInfoMapper
+                .selectByPrimaryKey(roast.getUserId()).getUserName());
+        return dto;
     }
 
     @Override
@@ -83,6 +81,8 @@ public class RoastManagerImpl implements RoastManager {
 
     @Override
     public int updateRecordById(RoastDto dto) {
-        return 0;
+        Roast roast = new Roast();
+        BeanUtils.copyProperties(dto, roast);
+        return mapper.updateByPrimaryKey(roast);
     }
 }

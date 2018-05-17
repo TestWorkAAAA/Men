@@ -8,7 +8,7 @@
     <context id="mysqlgenerator" targetRuntime="MyBatis3">
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/MySchool"
+                        connectionURL="jdbc:mysql://localhost:3306/Market"
                         userId="root"
                         password="12345678" />
 
@@ -26,7 +26,8 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="join_class"/>
+        <table tableName="replay"/>
+
 
     </context>
 
