@@ -1,11 +1,11 @@
 package com.cdut.myschool.core.impl;
 
+import com.cdut.myschool.core.dto.GoodsDto;
 import com.cdut.myschool.core.dto.TipDto;
 import com.cdut.myschool.core.manager.TipManager;
 import com.cdut.myschool.core.util.UID;
-import com.cdut.myschool.persist.entity.Tip;
-import com.cdut.myschool.persist.entity.TipExample;
-import com.cdut.myschool.persist.entity.UserInfo;
+import com.cdut.myschool.persist.entity.*;
+import com.cdut.myschool.persist.mapper.GoodsMapper;
 import com.cdut.myschool.persist.mapper.TipMapper;
 import com.cdut.myschool.persist.mapper.UserInfoMapper;
 import org.springframework.beans.BeanUtils;
@@ -24,6 +24,9 @@ public class TipManagerImpl implements TipManager {
 
     @Autowired
     UserInfoMapper userInfoMapper;
+
+    @Autowired
+    GoodsMapper goodsMapper;
 
     @Override
     public List<TipDto> queryByParams(Map<String, Object> params) {
@@ -69,6 +72,18 @@ public class TipManagerImpl implements TipManager {
         Tip tip = mapper.selectByPrimaryKey(id);
         BeanUtils.copyProperties(tip, dto);
         dto.setUserName(userInfoMapper.selectByPrimaryKey(tip.getUserId()).getUserName());
+
+        GoodsExample example1 = new GoodsExample();
+        example1.createCriteria().andIdEqualTo(id);
+        List<Goods> goods = goodsMapper.selectByExample(example1);
+        List<GoodsDto> dtos = new ArrayList<>();
+        for (Goods temp : goods) {
+            GoodsDto mid = new GoodsDto();
+            BeanUtils.copyProperties(temp, mid);
+            mid.setUserName(userInfoMapper.selectByPrimaryKey(mid.getUserId()).getUserName());
+            dtos.add(mid);
+        }
+        dto.setGoodsId(dtos);
         return dto;
     }
 

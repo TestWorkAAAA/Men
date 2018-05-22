@@ -26,7 +26,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="replay"/>
+        <table tableName="goods"/>
 
 
     </context>

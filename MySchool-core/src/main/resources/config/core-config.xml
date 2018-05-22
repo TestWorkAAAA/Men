@@ -20,4 +20,7 @@
 	<bean id="tipManager" class="com.cdut.myschool.core.impl.TipManagerImpl"/>
 	<bean id="userActionManager" class="com.cdut.myschool.core.impl.UserActionManagerImpl"/>
 	<bean id="userInfoManager" class="com.cdut.myschool.core.impl.UserInfoManagerImpl"/>
+
+	<bean id="goodManager" class="com.cdut.myschool.core.impl.GoodManagerImpl"/>
+	<bean id="orderManager" class="com.cdut.myschool.core.impl.OrderManagerImpl"/>
 </beans>

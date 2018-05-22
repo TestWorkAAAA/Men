@@ -1,6 +1,7 @@
 package com.cdut.myschool.core.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class TipDto {
     /**
@@ -76,6 +77,16 @@ public class TipDto {
     private Integer goodNum;
 
     private String userName;
+
+    private List<GoodsDto> goodsId;
+
+    public List<GoodsDto> getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(List<GoodsDto> goodsId) {
+        this.goodsId = goodsId;
+    }
 
     public String getUserName() {
         return userName;

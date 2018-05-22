@@ -20,7 +20,6 @@ import java.util.HashMap;
  * Created by XuSt on 2017/3/18.
  */
 public class CdutEduSys {
-    //¶¨Òåurl³£Á¿
     private static final String URL_HEAD = "http://202.115.133.173:805";
     private static final String LOGIN_URL = "/Common/Handler/UserLogin.ashx";
     private static final String GRADE_URL = "/SearchInfo/Score/ScoreList.aspx";
@@ -95,7 +94,7 @@ public class CdutEduSys {
         gradesList.clear();
 
         if (doc != null) {
-            //½âÎöÑ§Éú³É¼¨
+            //ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½É¼ï¿½
             System.out.println("##Parsing grades!!##");
             Elements elements = doc.getElementsByClass("score_right_infor_list listUl");
             Elements liElements = elements.select("li");
@@ -125,7 +124,7 @@ public class CdutEduSys {
 //        Document doc = Jsoup.parse(okHttpJar.getResponseBody(URL_HEAD + CLASS_TABLE_URL + "termid=" + getTermid() + "&stuID=" + username));
         Document doc = Jsoup.parse(okHttpJar.getResponseBody(URL_HEAD + CLASS_TABLE_URL + "termid=201702" + "&stuID=" + username));
 //        classInfos.clear();
-        //¼ÆÊý²¢¼ÆËãÐÇÆÚ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         classWeeks.clear();
         ArrayList<ClassInfo> weekClass = new ArrayList<>();
         int count = 0;
