@@ -42,6 +42,11 @@ public class TipManagerImpl implements TipManager {
         if (params.get(KEY_USER_ID) != null) {
             criteria.andUserIdEqualTo(params.get(KEY_USER_ID).toString());
         }
+        if (params.get(KEY_ORDER) != null) {
+            example.setOrderByClause(params.get(KEY_ORDER).toString());
+        } else {
+            example.setOrderByClause("time desc");
+        }
         List<Tip> temp = mapper.selectByExample(example);
         List<TipDto> result = new ArrayList<>(temp.size());
         for (Tip entity : temp) {
@@ -90,17 +95,14 @@ public class TipManagerImpl implements TipManager {
     @Override
     public int insertOneRecord(TipDto dto) {
         Tip tip = new Tip();
-        checkNotNull(dto, tip);
-        if (tip.getId() == null) {
-            tip.setId(UID.next());
-        }
+        BeanUtils.copyProperties(dto,tip);
         return mapper.insert(tip);
     }
 
     @Override
     public int updateRecordById(TipDto dto) {
         Tip tip = new Tip();
-        checkNotNull(dto, tip);
+        BeanUtils.copyProperties(dto,tip);
         return mapper.updateByPrimaryKey(tip);
     }
 }

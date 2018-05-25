@@ -39,6 +39,7 @@ public class ReplayManagerImpl implements ReplayManager {
         if (params.get(KEY_USER_ID) != null) {
             criteria.andUserIdEqualTo(params.get(KEY_USER_ID).toString());
         }
+        example.setOrderByClause("time desc");
         List<Replay> temp = replayMapper.selectByExample(example);
         List<ReplayDto> result = new ArrayList<>(temp.size());
         for (Replay entity : temp) {

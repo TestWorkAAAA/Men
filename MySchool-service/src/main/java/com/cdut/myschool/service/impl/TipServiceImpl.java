@@ -3,6 +3,7 @@ package com.cdut.myschool.service.impl;
 import com.cdut.myschool.core.dto.TipDto;
 import com.cdut.myschool.core.manager.ReplayManager;
 import com.cdut.myschool.core.manager.TipManager;
+import com.cdut.myschool.persist.entity.Tip;
 import com.cdut.myschool.service.service.TipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +44,26 @@ public class TipServiceImpl implements TipService {
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public TipDto getById(String id) {
+        TipDto tip = manager.getByPrimaryKey(id);
+
+        return tip;
+    }
+
+    @Override
+    public boolean look(String id) {
+        TipDto tipDto = manager.getByPrimaryKey(id);
+        tipDto.setLookNum(tipDto.getLookNum() + 1);
+        return manager.updateRecordById(tipDto) > 0;
+    }
+
+    @Override
+    public boolean good(String id) {
+        TipDto tipDto = manager.getByPrimaryKey(id);
+        tipDto.setGoodNum(tipDto.getGoodNum() + 1);
+        return manager.updateRecordById(tipDto) > 0;
     }
 }

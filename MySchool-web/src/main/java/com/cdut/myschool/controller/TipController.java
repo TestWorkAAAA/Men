@@ -39,6 +39,8 @@ public class TipController {
         String tipId = UID.next();
         TipDto dto = new TipDto();
         dto.setPicUrl(picUrl);
+        dto.setGoodNum(0);
+        dto.setLookNum(0);
         dto.setTime(new Date());
         dto.setName(name);
         dto.setUserId(userId);
@@ -70,9 +72,9 @@ public class TipController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/getRoastByTipId")
+    @RequestMapping(method = RequestMethod.POST, value = "/getTipByTipId")
     @ResponseBody
-    public ResultVO roastSearchById(String id, String userId, String name) {
+    public ResultVO tipSearchById(String id, String userId, String name,String orderType) {
 
         Map<String,Object> map = new HashMap<>();
         if (id != null) {
@@ -86,11 +88,29 @@ public class TipController {
         if (name != null) {
             map.put(TipManager.KEY_NAME,name);
         }
+
+        if (orderType != null) {
+            map.put(TipManager.KEY_ORDER, orderType);
+        }
         List<TipDto> ls = service.queryByParams(map);
         if (ls != null) {
             return ResultUtil.success(ls,0,ls.size(),null);
         } else {
             return ResultUtil.failure(40001, "查询失败");
         }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/lookOrGood")
+    @ResponseBody
+    ResultVO lookOrGood(String id, String type) {
+        if (id == null || type == null) {
+            return ResultUtil.failure(CodeUtils.FAIL_PARAMENT_ERROR, CodeUtils.MSG_PARAMENT_NULL);
+        }
+        if (type.equals("good")) {
+            service.good(id);
+        } else {
+            service.look(id);
+        }
+        return ResultUtil.success();
     }
 }

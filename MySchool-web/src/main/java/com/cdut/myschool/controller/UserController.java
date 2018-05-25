@@ -30,14 +30,15 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/addOneUser")
     @ResponseBody
-    public ResultVO tipAdd(String userName, String headPicUrl, String phoneNumber, String location, String introduce) {
-        if (userName == null || phoneNumber == null) {
+    public ResultVO tipAdd(String id,String userName, String headPicUrl, String phoneNumber, String location, String introduce) {
+        if (id == null || userName == null || phoneNumber == null) {
             return ResultUtil.failure(CodeUtils.FAIL_PARAMENT_ERROR, CodeUtils.MSG_PARAMENT_NULL);
         }
         if (!userInfoService.checkExist(userName)&&userInfoService.checkNumberExist(phoneNumber)) {
             return ResultUtil.failure(CodeUtils.FAIL_PARAMENT_ERROR, CodeUtils.MSG_PARAMENT_NULL);
         }
         UserInfoDto dto = new UserInfoDto();
+        dto.setId(id);
         dto.setUserName(userName);
         dto.setCoin(0);
         dto.setCreditNun(100);
@@ -72,7 +73,7 @@ public class UserController {
         dto.setLocation(location);
         dto.setPhoneNumber(phoneNumber);
 
-        if (userInfoService.addOne(dto) > 0) {
+        if (userInfoService.updateOne(dto) > 0) {
             return ResultUtil.success();
         } else {
             return ResultUtil.failure(40001, "查询失败");

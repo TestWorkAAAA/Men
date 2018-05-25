@@ -43,7 +43,7 @@ public class GoodManagerImpl implements GoodsManager {
             criteria.andStatusEqualTo(Integer.parseInt(params.get(KEY_STATUS).toString()));
         }
         if (params.get(KEY_NAME) != null) {
-            criteria.andNameEqualTo(params.get(KEY_NAME).toString());
+            criteria.andNameLike(params.get(KEY_NAME).toString());
         }
         List<Goods> temp = mapper.selectByExample(example);
         List<GoodsDto> result = new ArrayList<>(temp.size());

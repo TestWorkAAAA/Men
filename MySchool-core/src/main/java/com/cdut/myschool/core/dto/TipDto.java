@@ -76,6 +76,8 @@ public class TipDto {
      */
     private Integer goodNum;
 
+    private String goodId;
+
     private String userName;
 
     private List<GoodsDto> goodsId;
